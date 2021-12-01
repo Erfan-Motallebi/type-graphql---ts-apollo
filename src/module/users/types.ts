@@ -20,8 +20,8 @@ abstract class SharedUserInterface {
   @Field()
   password: string;
 }
-@InputType()
-class SharedUserInputType {
+@ArgsType()
+class SharedUserArgsType {
   @Field()
   @IsEmail(null, { message: "Email must be valid." })
   email: string;
@@ -58,8 +58,7 @@ export class UserType implements Partial<User> {
 }
 
 @ArgsType()
-@InputType()
-export class UserInputType implements SharedUserInterface {
+export class UserInputType extends SharedUserArgsType {
   @Length(5, 100, { message: "Must be between 10 - 100 letters" })
   @Field()
   first_name: string;
@@ -67,18 +66,10 @@ export class UserInputType implements SharedUserInterface {
   @Validate(CustomTextLength)
   @Field()
   last_name: string;
-
-  @Field()
-  @IsEmail(null, { message: "Email must be valid." })
-  email: string;
-
-  @MinLength(5, { message: "Minimum password length is 5 letters." })
-  @Field()
-  password: string;
 }
 
 @InputType()
-export class LoginInput implements SharedUserInterface {
+export class LoginInput {
   @Length(5, 100, { message: "Not correct to go!" })
   @Field()
   username: string;
@@ -112,16 +103,7 @@ export class UserConfirmityInputType {
 }
 
 @ArgsType()
-@InputType()
-export class ChangePasswordInput implements SharedUserInterface {
-  @Field()
-  @IsEmail(null, { message: "Email must be valid." })
-  email: string;
-
-  @MinLength(5, { message: "Minimum password length is 5 letters." })
-  @Field()
-  password: string;
-
+export class ChangePasswordInput extends SharedUserArgsType {
   @Field()
   oldPassword: string;
 }
