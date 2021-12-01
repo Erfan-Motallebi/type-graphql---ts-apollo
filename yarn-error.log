@@ -1,0 +1,41 @@
+Arguments: 
+  /home/erfan/.nvm/versions/node/v16.8.0/bin/node /home/erfan/.nvm/versions/node/v16.8.0/bin/yarn add apollo-server-express graphql type-graphqlclass-validator reflect-metadata express
+
+PATH: 
+  /home/erfan/.nvm/versions/node/v16.8.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.8.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/type-graphqlclass-validator: Not found
+      at Request.params.callback [as _callback] (/home/erfan/.nvm/versions/node/v16.8.0/lib/node_modules/yarn/lib/cli.js:67029:18)
+      at Request.self.callback (/home/erfan/.nvm/versions/node/v16.8.0/lib/node_modules/yarn/lib/cli.js:140883:22)
+      at Request.emit (node:events:394:28)
+      at Request.<anonymous> (/home/erfan/.nvm/versions/node/v16.8.0/lib/node_modules/yarn/lib/cli.js:141855:10)
+      at Request.emit (node:events:394:28)
+      at IncomingMessage.<anonymous> (/home/erfan/.nvm/versions/node/v16.8.0/lib/node_modules/yarn/lib/cli.js:141777:12)
+      at Object.onceWrapper (node:events:513:28)
+      at IncomingMessage.emit (node:events:406:35)
+      at endReadableNT (node:internal/streams/readable:1343:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "type-graphql-ts-apollo",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

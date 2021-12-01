@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "rootroot",
+  "database": "TypeGraphQL-Test",
+  "logging": true,
+  "synchronize": true,
+  "entities": [
+    "./src/entities/*.*"
+  ]
+}
