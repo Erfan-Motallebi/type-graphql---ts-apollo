@@ -3,7 +3,6 @@ import { Arg, Mutation, Resolver } from "type-graphql";
 import { User } from "../../../entities/User";
 import { Redis } from "../../../redis";
 import { sendEmailConfirmation } from "../../utils/userEmailConfirm";
-import { userUrlMaker } from "../../utils/userURLMaker";
 
 @Resolver()
 export class UserForgotPasswordResolver {

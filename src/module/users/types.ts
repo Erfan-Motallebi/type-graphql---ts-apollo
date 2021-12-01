@@ -1,8 +1,35 @@
-import { IsEmail, Length, Validate } from "class-validator";
+import { IsEmail, Length, MinLength, Validate } from "class-validator";
 import { Request, Response } from "express";
-import { ArgsType, Field, ID, InputType, ObjectType } from "type-graphql";
+import {
+  ArgsType,
+  Field,
+  ID,
+  InputType,
+  InterfaceType,
+  ObjectType,
+} from "type-graphql";
 import { User } from "../../entities/User";
 import { CustomTextLength } from "../utils/emailContextCheck";
+
+@InterfaceType()
+abstract class SharedUserInterface {
+  @Field()
+  @IsEmail(null, { message: "Email must be valid." })
+  email: string;
+
+  @Field()
+  password: string;
+}
+@InputType()
+class SharedUserInputType {
+  @Field()
+  @IsEmail(null, { message: "Email must be valid." })
+  email: string;
+
+  @MinLength(5, { message: "Minimum password length is 5 letters." })
+  @Field()
+  password: string;
+}
 
 @ObjectType({ description: "Input for a new user registration" })
 export class UserType implements Partial<User> {
@@ -32,7 +59,7 @@ export class UserType implements Partial<User> {
 
 @ArgsType()
 @InputType()
-export class UserInputType {
+export class UserInputType extends SharedUserInputType {
   @Length(5, 100, { message: "Must be between 10 - 100 letters" })
   @Field()
   first_name: string;
@@ -40,13 +67,13 @@ export class UserInputType {
   @Validate(CustomTextLength)
   @Field()
   last_name: string;
+}
 
-  @IsEmail({}, { message: "Must be a real email" })
+@InputType()
+export class LoginInput extends SharedUserInputType {
+  @Length(5, 100, { message: "Not correct to go!" })
   @Field()
-  email: string;
-
-  @Field()
-  password: string;
+  username: string;
 }
 
 export interface ILoginContextReuqest {
@@ -70,14 +97,7 @@ export class UserConfirmityInputType {
 
 @ArgsType()
 @InputType()
-export class ChangePasswordInput {
-  @Field()
-  @IsEmail(null, { message: "Email must be a valid one" })
-  email: string;
-
-  @Field()
-  newPassword: string;
-
+export class ChangePasswordInput extends SharedUserInputType {
   @Field()
   oldPassword: string;
 }

@@ -1,13 +1,14 @@
 import bcryptJS from "bcryptjs";
-import { Args, Mutation, Resolver } from "type-graphql";
+import { Args, Ctx, Mutation, Resolver } from "type-graphql";
 import { User } from "../../../entities/User";
-import { ChangePasswordInput, UserType } from "../types";
+import { ChangePasswordInput, ILoginContextReuqest, UserType } from "../types";
 
 @Resolver()
 export class ChangePasswordResolver {
   @Mutation(() => UserType)
   async changePassword(
-    @Args() { email, oldPassword, newPassword }: ChangePasswordInput
+    @Args() { email, oldPassword, password }: ChangePasswordInput,
+    @Ctx() { req, res }: ILoginContextReuqest
   ): Promise<User | null> {
     const user = await User.findOne({ where: { email } });
     if (!user) {
@@ -19,10 +20,14 @@ export class ChangePasswordResolver {
       return null;
     }
 
-    const newHashPassword = await bcryptJS.hash(newPassword, 12);
+    const newHashPassword = await bcryptJS.hash(password, 12);
 
     user.password = newHashPassword;
     await user.save();
+
+    // Cookie Registration
+    req.session!.userId = user.id;
+
     return user;
   }
 }

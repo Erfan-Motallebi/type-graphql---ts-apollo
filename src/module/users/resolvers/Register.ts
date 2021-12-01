@@ -1,5 +1,6 @@
 import {
   Args,
+  Ctx,
   // Authorized,
   FieldResolver,
   Mutation,
@@ -9,7 +10,7 @@ import {
   UseMiddleware,
 } from "type-graphql";
 import bcryptJS from "bcryptjs";
-import { UserInputType, UserType } from "../types";
+import { ILoginContextReuqest, UserInputType, UserType } from "../types";
 import { AuthMiddleware } from "../userMiddlewares";
 import { User } from "../../../entities/User";
 import { userUrlMaker } from "../../utils/userURLMaker";
@@ -35,7 +36,8 @@ export class RegisterResolver {
   @Mutation(() => UserType)
   async addUser(
     @Args({ validate: { validationError: { target: false } } })
-    { first_name, last_name, email, password }: UserInputType
+    { first_name, last_name, email, password }: UserInputType,
+    @Ctx() { req, res }: ILoginContextReuqest
   ): // @Arg("data") { email, first_name, last_name, password }: UserInputType
   Promise<User> {
     const hashedPassword = await bcryptJS.hash(password, 12);
@@ -50,6 +52,8 @@ export class RegisterResolver {
     // User Email Confirmation
     await sendEmailConfirmation(email, await userUrlMaker({ userId: user.id }));
 
+    // Cookie Registration
+    req.session!.userId = user.id;
     return user;
   }
 }
