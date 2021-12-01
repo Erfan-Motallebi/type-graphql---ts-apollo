@@ -59,7 +59,7 @@ export class UserType implements Partial<User> {
 
 @ArgsType()
 @InputType()
-export class UserInputType extends SharedUserInputType {
+export class UserInputType implements SharedUserInterface {
   @Length(5, 100, { message: "Must be between 10 - 100 letters" })
   @Field()
   first_name: string;
@@ -67,13 +67,29 @@ export class UserInputType extends SharedUserInputType {
   @Validate(CustomTextLength)
   @Field()
   last_name: string;
+
+  @Field()
+  @IsEmail(null, { message: "Email must be valid." })
+  email: string;
+
+  @MinLength(5, { message: "Minimum password length is 5 letters." })
+  @Field()
+  password: string;
 }
 
 @InputType()
-export class LoginInput extends SharedUserInputType {
+export class LoginInput implements SharedUserInterface {
   @Length(5, 100, { message: "Not correct to go!" })
   @Field()
   username: string;
+
+  @Field()
+  @IsEmail(null, { message: "Email must be valid." })
+  email: string;
+
+  @MinLength(5, { message: "Minimum password length is 5 letters." })
+  @Field()
+  password: string;
 }
 
 export interface ILoginContextReuqest {
@@ -97,7 +113,15 @@ export class UserConfirmityInputType {
 
 @ArgsType()
 @InputType()
-export class ChangePasswordInput extends SharedUserInputType {
+export class ChangePasswordInput implements SharedUserInterface {
+  @Field()
+  @IsEmail(null, { message: "Email must be valid." })
+  email: string;
+
+  @MinLength(5, { message: "Minimum password length is 5 letters." })
+  @Field()
+  password: string;
+
   @Field()
   oldPassword: string;
 }

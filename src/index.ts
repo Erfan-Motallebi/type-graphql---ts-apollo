@@ -34,7 +34,11 @@ async function bootStrap() {
   const RedisStore = connectRedis(expressSession as any);
 
   const corOptions: CorsOptions = {
-    origin: "https://studio.apollographql.com",
+    methods: ["POST", "GET"],
+    origin: [
+      "https://studio.apollographql.com",
+      "http://localhost:4000/graphql",
+    ],
     credentials: true,
   };
   app.use(cors(corOptions));
