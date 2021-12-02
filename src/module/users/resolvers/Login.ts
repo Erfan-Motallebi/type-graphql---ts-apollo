@@ -25,6 +25,7 @@ export class LoginResolver {
       return null;
     }
 
+    // User Confirmation through an Email sent to his/her email in registration process
     if (user.confirmity) {
       return null;
     }
