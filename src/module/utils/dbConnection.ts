@@ -1,6 +1,12 @@
 import { Connection, createConnection } from "typeorm";
 
-export const dbConn = async (correct: boolean = false): Promise<Connection> => {
+interface ICorrect {
+  correct: boolean;
+}
+
+export const dbConn = async ({
+  correct = false,
+}: ICorrect): Promise<Connection> => {
   return await createConnection({
     type: "postgres",
     host: "localhost",
@@ -11,6 +17,6 @@ export const dbConn = async (correct: boolean = false): Promise<Connection> => {
     // logging: true,
     synchronize: correct,
     dropSchema: correct,
-    entities: ["./src/entities/*.*"],
+    entities: ["../../entities/**/*.ts"],
   });
 };

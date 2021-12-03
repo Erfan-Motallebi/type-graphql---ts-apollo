@@ -20,6 +20,9 @@ export class UserConfirmResolver {
       throw new Error("Token failed to go");
     }
     await Redis.del("token");
+    // Conformity of the user after clicking the email sent in process of User Registration
+    user.confirmity = true;
+    await user.save();
     return user;
   }
 }

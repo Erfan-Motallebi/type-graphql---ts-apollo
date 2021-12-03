@@ -1,8 +1,18 @@
 import { info } from "console";
-import { graphql } from "graphql";
-import { createSchema } from "../../../utils/createSchema";
+import { Connection } from "typeorm";
+import { dbConn } from "../../../utils/dbConnection";
 import { graphCall } from "../../../utils/graphCall";
-import { resolverMutation } from "./utils/resolvers";
+import { resolverMutation } from "../../../utils/resolvers";
+
+let dbCnnectionTypeOrm: Connection;
+
+beforeAll(async () => {
+  dbCnnectionTypeOrm = await dbConn({ correct: true });
+});
+
+afterAll(async () => {
+  await dbCnnectionTypeOrm.close();
+});
 
 describe("User Registration Rersolver Test", () => {
   test("should return a user when it gets done", async () => {
