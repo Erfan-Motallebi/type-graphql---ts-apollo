@@ -29,10 +29,7 @@ async function bootStrap() {
 
   const corOptions: CorsOptions = {
     methods: ["POST", "GET"],
-    origin: [
-      "https://studio.apollographql.com",
-      "http://localhost:4000/graphql",
-    ],
+    origin: ["https://studio.apollographql.com"],
     credentials: true,
   };
   app.use(cors(corOptions));
