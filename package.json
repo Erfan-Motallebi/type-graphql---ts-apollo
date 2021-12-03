@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
     "test:db": "ts-node module/utils/dbConnection.ts",
-    "test": "npm run test:db && yarn test"
+    "test": "yarn test:db && yarn test"
   },
   "dependencies": {
     "apollo-server-express": "^3.5.0",
