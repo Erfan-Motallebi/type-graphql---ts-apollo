@@ -6,10 +6,10 @@ import { buildSchema } from "type-graphql";
 import expressSession from "express-session";
 import connectRedis from "connect-redis";
 import { nanoid } from "nanoid";
-import { Redis } from "./src/redis";
+import { Redis } from "./redis";
 import cors, { CorsOptions } from "cors";
-import { ILoginContextReuqest } from "./src/module/users/types";
-import { createSchema } from "./src/module/utils/createSchema";
+import { ILoginContextReuqest } from "./module/users/types";
+import { createSchema } from "./module/utils/createSchema";
 
 async function bootStrap() {
   await createConnection();
