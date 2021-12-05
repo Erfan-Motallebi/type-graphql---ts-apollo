@@ -1,12 +1,13 @@
 {
+  "name": "default",
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
   "password": "rootroot",
-  "database": "TypeGraphQL-Test",
-  "logging": true,
+  "database": "TypeGraphQLJest",
   "synchronize": true,
+  "dropSchema": true,
   "entities": [
     "./src/entities/*.*"
   ]

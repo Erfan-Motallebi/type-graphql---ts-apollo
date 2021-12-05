@@ -1,27 +1,23 @@
-import { info } from "console";
-import { Connection } from "typeorm";
-import { dbConn } from "../../../utils/dbConnection";
 import { graphCall } from "../../../utils/graphCall";
 import { resolverMutation } from "../../../utils/resolvers";
-
-let dbCnnectionTypeOrm: Connection | undefined;
+import dbConnection from "../../../utils/dbConnection";
 
 beforeAll(async () => {
-  try {
-    dbCnnectionTypeOrm = await dbConn({ correct: true });
-  } catch (error) {
-    console.log(error);
-  }
+  await dbConnection.create();
+});
+
+beforeEach(async () => {
+  await dbConnection.clear();
 });
 
 afterAll(async () => {
-  (await dbCnnectionTypeOrm.close()) as Connection;
+  await dbConnection.close();
 });
 
 describe("User Registration Rersolver Test", () => {
   test("should return a user when it gets done", async () => {
-    info(
-      graphCall({
+    console.log(
+      await graphCall({
         source: resolverMutation,
         variableValues: {
           first_name: "Erfan",

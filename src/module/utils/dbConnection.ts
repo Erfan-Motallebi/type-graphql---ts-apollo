@@ -1,26 +1,21 @@
-import { Connection, createConnection } from "typeorm";
+import { createConnection, getConnection } from "typeorm";
 
-interface ICorrect {
-  correct: boolean;
-}
-
-export const dbConn = async ({ correct = false }: ICorrect) => {
-  let db;
-  try {
-    db = await createConnection({
-      type: "postgres",
-      host: "localhost",
-      port: 5432,
-      username: "postgres",
-      password: "rootroot",
-      database: "TypeGraphQLJest",
-      // logging: true,
-      synchronize: correct,
-      dropSchema: correct,
-      entities: ["../../entities/**/*.ts"],
+export default {
+  async create() {
+    await createConnection();
+  },
+  async close() {
+    await getConnection().close();
+  },
+  async clear() {
+    // getting the connected relation
+    const connection = getConnection();
+    //  getting all enttites
+    const entities = connection.entityMetadatas;
+    // iterating over the entities to clear the table [ Entity ] using getRepository
+    entities.forEach(async (entity) => {
+      const repos = connection.getRepository(entity.name);
+      await repos.query(`DELETE FROM ${entity.tableName}`);
     });
-  } catch (error) {
-    console.log(error);
-  }
-  return db;
+  },
 };

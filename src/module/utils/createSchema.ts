@@ -6,7 +6,7 @@ const resolverPath = path.join(__dirname, "../", "users", "resolvers");
 
 export const createSchema = async () => {
   return await buildSchema({
-    resolvers: [resolverPath + "/*/*.ts"],
+    resolvers: [resolverPath + "/**/*.ts"],
     authChecker: customAuthChecker,
   });
 };

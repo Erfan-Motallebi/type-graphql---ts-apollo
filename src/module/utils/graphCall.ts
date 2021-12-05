@@ -10,7 +10,7 @@ interface IGraphCall {
 }
 
 export const graphCall = async ({ source, variableValues }: IGraphCall) => {
-  return graphql({
+  return await graphql({
     schema: await createSchema(),
     source,
     variableValues,
