@@ -1,11 +1,11 @@
 {
   "name": "type-graphql-ts-apollo",
   "version": "1.0.0",
-  "main": "index.ts",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
-    "test": "jest --detectOpenHandles"
+    "db:setup": "ts-node src/module/users/utils/dbConn.ts",
+    "test": "jest"
   },
   "dependencies": {
     "apollo-server-express": "^3.5.0",
@@ -21,6 +21,7 @@
     "nodemailer": "^6.7.2",
     "redis": "^4.0.0",
     "reflect-metadata": "^0.1.13",
+    "supertest": "^6.1.6",
     "type-graphql": "^1.1.1"
   },
   "devDependencies": {
@@ -36,10 +37,12 @@
     "@types/node": "^16.11.10",
     "@types/nodemailer": "^6.4.4",
     "@types/redis": "^2.8.32",
+    "@types/supertest": "^2.0.11",
     "jest": "^27.4.3",
     "nodemon": "^2.0.15",
     "pg": "^8.7.1",
     "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",
     "typeorm": "^0.2.41",
     "typescript": "^4.5.2"

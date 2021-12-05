@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Ctx, Mutation, Resolver } from "type-graphql";
 import { Redis } from "../../../redis";
 import { ILoginContextReuqest } from "../types";

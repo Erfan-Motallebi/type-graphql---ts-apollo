@@ -1,4 +1,5 @@
 import {
+  Arg,
   Args,
   Ctx,
   // Authorized,
@@ -37,15 +38,16 @@ export class RegisterResolver {
   async addUser(
     @Args({ validate: { validationError: { target: false } } })
     { first_name, last_name, email, password }: UserInputType,
+    // @Arg("data") data: UserInputType,
     @Ctx() { req, res }: ILoginContextReuqest
   ): // @Arg("data") { email, first_name, last_name, password }: UserInputType
   Promise<User> {
     const hashedPassword = await bcryptJS.hash(password, 12);
 
     const user = await User.create({
-      first_name,
-      last_name,
-      email,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
       password: hashedPassword,
     }).save();
 

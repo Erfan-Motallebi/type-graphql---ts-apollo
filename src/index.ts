@@ -60,4 +60,4 @@ async function bootStrap() {
   });
 }
 
-bootStrap();
+export default bootStrap;

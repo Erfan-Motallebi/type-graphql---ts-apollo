@@ -7,9 +7,5 @@ export const customAuthChecker: AuthChecker<ILoginContextReuqest> = (
   role
 ) => {
   const cookie = Redis.get("cookie");
-  if (req.session!.userId || cookie) {
-    return true;
-  } else {
-    return false;
-  }
+  return !!req.session!.userId;
 };
