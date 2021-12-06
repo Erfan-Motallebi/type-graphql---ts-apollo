@@ -1,18 +1,19 @@
 import { graphCall } from "../../../utils/graphCall";
 import { resolverMutation } from "../../../utils/resolvers";
 import Request from "supertest";
-import { Connection } from "typeorm";
 import dbConnection from "../../../utils/dbConnection";
 import { Redis } from "../../../../redis";
 
-let conn: Connection;
-
 beforeAll(async () => {
-  conn = await dbConnection({ correct: true });
+  await dbConnection.create();
+});
+
+beforeEach(async () => {
+  await dbConnection.clear();
 });
 
 afterAll(async () => {
-  await conn.close();
+  await dbConnection.close();
   // Handling Opening Async Handlers
   await Redis.quit();
 });
@@ -23,7 +24,7 @@ describe("User Registration Rersolver Test", () => {
       const resp = await graphCall({
         source: resolverMutation,
         variableValues: {
-          firstName: "test",
+          // firstName: "test",
           lastName: "forTest",
           email: "test@test.com",
           password: "12356",
