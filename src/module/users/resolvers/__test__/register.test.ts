@@ -3,6 +3,7 @@ import { resolverMutation } from "../../../utils/resolvers";
 import Request from "supertest";
 import { Connection } from "typeorm";
 import dbConnection from "../../../utils/dbConnection";
+import { Redis } from "../../../../redis";
 
 let conn: Connection;
 
@@ -12,6 +13,8 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await conn.close();
+  // Handling Opening Async Handlers
+  await Redis.quit();
 });
 
 describe("User Registration Rersolver Test", () => {
@@ -30,21 +33,21 @@ describe("User Registration Rersolver Test", () => {
     } catch ({ data, location, path }) {
       console.log({ data, location, path });
     }
-
-    // await Request(app)
-    //   .post("/")
-    //   .set("Content-Type", "application/json")
-    //   .set("Accept", "application/json")
-    //   .send({
-    //     query: resolverMutation,
-    //     operationName: "AddUser",
-    //     variables: {
-    //       firstName: "Erfan",
-    //       lastName: "Motallebi",
-    //       email: "eZipcoder@gmail.com",
-    //       password: "123456",
-    //     },
-    //   })
-    //   .expect(200);
   });
+
+  // await Request(app)
+  //   .post("/")
+  //   .set("Content-Type", "application/json")
+  //   .set("Accept", "application/json")
+  //   .send({
+  //     query: resolverMutation,
+  //     operationName: "AddUser",
+  //     variables: {
+  //       firstName: "Erfan",
+  //       lastName: "Motallebi",
+  //       email: "eZipcoder@gmail.com",
+  //       password: "123456",
+  //     },
+  //   })
+  //   .expect(200);
 });
